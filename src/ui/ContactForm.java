@@ -13,6 +13,9 @@ public class ContactForm extends JFrame {
     private JButton buttonCancel;
     private JButton buttonSave;
 
+
+    // CONTACTFORM chama a BUSINESS que valida toda a regra de negocio e a BUSINESS
+    // chama REPOSITORY, onde armazanamos os dados
     public ContactForm() {
 
         setContentPane(rootPanel);

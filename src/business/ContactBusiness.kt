@@ -1,6 +1,9 @@
 package business
 
-// implementar logica = regras de negocio
+import entity.ContactEntity
+import repository.ContactRepository
+
+// implementar logica = valida as regras de negocio
 // é uma classe que possui acoes (salvar e deletar), nem precisa dos atributos
 
 class ContactBusiness {
@@ -25,9 +28,15 @@ class ContactBusiness {
 
     fun save(name: String, phone: String) {
         validate(name, phone)
+
+        val contact = ContactEntity(name, phone)
+        ContactRepository.save(contact)
     }
 
     fun delete(name: String, phone: String) {
         validateDelete(name, phone)
+
+        val contact = ContactEntity(name, phone)
+        ContactRepository.delete(contact)
     }
 }
