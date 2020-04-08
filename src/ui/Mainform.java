@@ -4,6 +4,7 @@ import business.ContactBusiness;
 import entity.ContactEntity;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ public class Mainform extends JFrame {
     private JButton buttonNewContact;
     private JButton buttonRemove;
     private JTable tableContacts;
+    private JLabel labelContactCount;
 
     // CRIAR VARIAVEIS responsaveis por acessar a lista (acesso ao business)
     // convencao do java: letra <M> na variavel indica que fui eu a criadora da variavel,
@@ -66,6 +68,31 @@ public class Mainform extends JFrame {
     private void loadContacts() {
         // criar a variavel a partir do <mContactBusiness.getList();>
         List<ContactEntity> contactList = mContactBusiness.getList();
-    }
 
+        String[] columnNames = {"Nome", "Telefone"}; // estas serao as colunas da tabela
+        // como associar a lista de contatos ao elemento? ao Mainform.form?
+        // instancio o model vazio
+        DefaultTableModel model = new DefaultTableModel(new Object[0][0], columnNames); // instanciando um objeto vazio
+
+        // vamos preencher a tabela
+        for (ContactEntity i : contactList) {
+            Object[] o = new Object[2];
+
+            // preencher o objeto
+            o[0] = i.getName();
+            o[1] = i.getPhone();
+
+            model.addRow(o);
+
+        }
+
+        // validar para evitar problemas
+        tableContacts.clearSelection();
+        // este model criado e preenchido agora pertence a table
+        tableContacts.setModel(model);
+
+        // criando metodo getContactCountDescription()
+        labelContactCount.setText(mContactBusiness.getContactCountDescription());
+
+    }
 }

@@ -17,11 +17,9 @@ class ContactRepository {
 
         fun save(contact: ContactEntity) {
             contactList.add(contact)
-
         }
 
         fun delete(contact: ContactEntity) {
-
         }
 
         // criar um metodo (este metodo sera uma funcao) que seja capaz de
