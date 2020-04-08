@@ -9,7 +9,7 @@ import repository.ContactRepository
 class ContactBusiness {
 
     // trabalhando com controle de fluxo e excecao
-    fun validate(name: String, phone: String) {
+    private fun validate(name: String, phone: String) {
         if (name == "") {
             throw Exception("Nome é obrigatório")
         }
@@ -19,11 +19,10 @@ class ContactBusiness {
         }
     }
 
-    fun validateDelete(name: String, phone: String) {
+    private fun validateDelete(name: String, phone: String) {
         if (name == "" || phone == "") {
             throw Exception("É necessário selecionar um contato antes de remover")
         }
-
     }
 
     fun save(name: String, phone: String) {
@@ -38,5 +37,10 @@ class ContactBusiness {
 
         val contact = ContactEntity(name, phone)
         ContactRepository.delete(contact)
+    }
+
+    // a business precisa retornar aquela lista do metodo fun getList do repositorio
+    fun getList(): List<ContactEntity> { // sem declarar o tipo de base
+        return ContactRepository.getList()
     }
 }

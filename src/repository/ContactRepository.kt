@@ -23,6 +23,12 @@ class ContactRepository {
         fun delete(contact: ContactEntity) {
 
         }
+
+        // criar um metodo (este metodo sera uma funcao) que seja capaz de
+        // retornar esses dados (uma lista de contatos)
+        fun getList(): List<ContactEntity> { // sem declarar o tipo de base
+            return contactList
+        }
     }
 
 }
