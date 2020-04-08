@@ -1,5 +1,7 @@
 package ui;
 
+import business.ContactBusiness;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +15,7 @@ public class ContactForm extends JFrame {
     private JButton buttonCancel;
     private JButton buttonSave;
 
+    private ContactBusiness mContactBusiness;
 
     // CONTACTFORM chama a BUSINESS que valida toda a regra de negocio e a BUSINESS
     // chama REPOSITORY, onde armazanamos os dados
@@ -28,6 +31,7 @@ public class ContactForm extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        mContactBusiness = new ContactBusiness();
         setListeners();
 
     }
@@ -36,8 +40,22 @@ public class ContactForm extends JFrame {
 
         buttonSave.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(ActionEvent e) {
 
+                // tratar a excecao
+                try {
+                    // pegar os dados e salva em business
+                    String name = textName.getText();
+                    String phone = textPhone.getText();
+
+                    mContactBusiness.save(name, phone);
+
+                    new Mainform(); // primeiro mostro o form
+                    dispose(); // aqui o form some
+
+                } catch (Exception excp) {
+                    JOptionPane.showConfirmDialog(new JFrame(), excp.getMessage());
+                }
             }
         });
 

@@ -48,23 +48,6 @@ public class Mainform extends JFrame {
         loadContacts(); // para chamar a funcao
     }
 
-    // criar funcao que ouve
-    private void setListeners() {
-        buttonNewContact.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                new ContactForm(); // estou invocando um formulario novo
-                dispose();
-            }
-        });
-
-        buttonRemove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-            }
-        });
-    }
-
     private void loadContacts() {
         // criar a variavel a partir do <mContactBusiness.getList();>
         List<ContactEntity> contactList = mContactBusiness.getList();
@@ -94,5 +77,22 @@ public class Mainform extends JFrame {
         // criando metodo getContactCountDescription()
         labelContactCount.setText(mContactBusiness.getContactCountDescription());
 
+    }
+
+    // criar funcao que ouve
+    private void setListeners() {
+        buttonNewContact.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new ContactForm(); // estou invocando um formulario novo
+                dispose();
+            }
+        });
+
+        buttonRemove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+            }
+        });
     }
 }
