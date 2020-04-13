@@ -4,6 +4,8 @@ import business.ContactBusiness;
 import entity.ContactEntity;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +26,9 @@ public class Mainform extends JFrame {
     // facilita o acesso as variaveis criadas no business
     private ContactBusiness mContactBusiness; // é preciso instanciar esta variavel para que ela viva,
     // para que ela tenha um valor e nao aponte o erro de estar nula (NullPointerException)
+
+    private String mName = " ";
+    private String mPhone = "";
 
     //CONSTRUTOR = é algo que é executado qdo a classe é criada
     public Mainform() {
@@ -83,15 +88,40 @@ public class Mainform extends JFrame {
     private void setListeners() {
         buttonNewContact.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(ActionEvent e) {
                 new ContactForm(); // estou invocando um formulario novo
                 dispose();
             }
         });
 
+        // adicionar evento para qdo clicar na caixa de selecao
+        tableContacts.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(e.getValueIsAdjusting()) {
+
+                    if(tableContacts.getSelectedRow() != -1) {
+                        mName = tableContacts.getValueAt(tableContacts.getSelectedRow(), 0).toString();
+                        mPhone = tableContacts.getValueAt(tableContacts.getSelectedRow(), 1).toString();
+                    }
+                }
+
+            }
+        });
+
         buttonRemove.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    mContactBusiness.delete(mName, mPhone);
+                    loadContacts();
+
+                    // validacao | limpar os campos
+                    mName = "";
+                    mPhone = "";
+                } catch(Exception excp) {
+                    JOptionPane.showMessageDialog(new JFrame(), excp.getMessage());
+                }
             }
         });
     }

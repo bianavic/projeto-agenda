@@ -59,6 +59,11 @@ public class ContactForm extends JFrame {
             }
         });
 
+        // selecao do contato para ser removido
+
+        // criar evento dentro do model
+
+
         buttonCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
